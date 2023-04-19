@@ -1,0 +1,13 @@
+version: '4'
+services:
+
+  node:
+    env_file:
+      - .env.local
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "3000:3000"

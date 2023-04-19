@@ -1,0 +1,15 @@
+FROM node:18.16.0-alpine3.17
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+#https://devops.stackexchange.com/questions/12469/dockerized-node-js-and-bind-mount-permission-problem
+#RUN adduser -D -H -S -s /bin/false -h /usr/src/app -u 1000 nodeuser
+
+COPY package*.json ./
+
+RUN npm install -g pnpm \
+  && pnpm install
+
+EXPOSE 3000
+#CMD ["npm", "run", "dev"]
+ENTRYPOINT ["tail", "-f", "/dev/null"]
