@@ -1,13 +1,10 @@
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
 import SanitySVG from '@/public/sanity.svg'
 import LoginForm from '@/components/LoginForm'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-});
+function FormElement () {
+  return <LoginForm onLogin={({ username }) => console.info('Logged in', username)} />
+} 
 
 export default function Home() {
   return (
@@ -49,9 +46,8 @@ export default function Home() {
 
       <div className='w-full max-w-md mt-10 p-6 sm:p-10 rounded-xl bg-white border border-gray-300 box-sh shadow-2xl focus-within:shadow-teal-400 transition-shadow duration-200 [--tw-shadow-colored:_0_0px_50px_-12px_var(--tw-shadow-color)]'>
         <h2 className='text-2xl mb-8'>Login</h2>
-        <LoginForm />
+        <FormElement />
       </div>
-
       
     </main>
   )
