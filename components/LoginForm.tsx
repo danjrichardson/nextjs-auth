@@ -1,4 +1,5 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
+import { useSession, signIn, signOut, getCsrfToken } from "next-auth/react"
 
 type InputProps = {
   onChange: (value: string) => void,
@@ -17,16 +18,51 @@ function Input ({ onChange, ...rest }:InputProps) {
 }
 
 export default function LoginForm ({ onLogin }:FormProps) {
+  const { data: session } = useSession()
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  // const [csrfToken, setCsrfToken] = useState('');
 
   const sumbitEnabled = username.length && password.length;
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+  // useEffect(() => {
+  //   async function fetchCsrf() {
+  //     try {
+  //       const response = await fetch('/api/auth/csrf');
+  //       const { csrfToken } = await response.json() as { csrfToken: string };
+  //       setCsrfToken(csrfToken);
+  //     }
+  //     catch (error) {
+  //       console.error(error)
+  //     }
+  //   }
+  //   fetchCsrf();
+  // }, [])
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
+
+    try {
+      const loginResponse = await signIn('cognito', {
+        email: username,
+        redirect: false
+      })
+      console.log(loginResponse)
+    }
+    catch (error) {
+      console.error(error)
+    }
+
+    console.log('do auth', csrfToken, { username, password: new Array(password.length).fill('*').join('') })
     if (sumbitEnabled){
       onLogin({ username });
     }
+  }
+
+  if (session) {
+    return <div>
+      Already logged in: { session.user?.email }. <button className='underline' onClick={() => signOut()}>Log out</button>
+    </div>
   }
 
   return <form className='space-y-4' onSubmit={handleSubmit}>
