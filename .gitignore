@@ -1,5 +1,6 @@
 .pnpm-store
 .vscode
+.env.local
 
 # Logs
 logs
