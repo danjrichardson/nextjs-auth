@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { getServerSession } from 'next-auth/next';
 import { GetServerSideProps } from 'next';
-import authOptions from '@/cognito-auth';
+import authOptions from '@/auth-config';
 import { useSession } from 'next-auth/react';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
