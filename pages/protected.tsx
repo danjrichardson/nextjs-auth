@@ -14,13 +14,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 export default function Protected() {
   const { data: session } = useSession();
 
-  if (typeof window === 'undefined') return null;
-
-  if (!session) {
+  if (session) {
     return (
       <main className="flex min-h-screen flex-col items-center gap-y-10 p-8 sm:p-24">
         <div className="flex flex-col place-items-center">
-          Unauthorized Page.
+          Protected Page.
           <p className="my-10">
             <Link href="/">Back home</Link>
           </p>
@@ -32,7 +30,7 @@ export default function Protected() {
   return (
     <main className="flex min-h-screen flex-col items-center gap-y-10 p-8 sm:p-24">
       <div className="flex flex-col place-items-center">
-        Protected Page.
+        Unauthorized Page.
         <p className="my-10">
           <Link href="/">Back home</Link>
         </p>
