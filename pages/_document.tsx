@@ -5,7 +5,6 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <title>NextJS Auth</title>
         <meta
           name="description"
           content="Next.js app with Auth and later, Sanity"
