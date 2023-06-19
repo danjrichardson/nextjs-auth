@@ -15,7 +15,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <div className={inter.className}>
         <SessionProvider session={session}>
-          <Component session={session} {...pageProps} />
+          <Component {...pageProps} />
         </SessionProvider>
       </div>
     </>
